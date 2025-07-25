@@ -1,0 +1,35 @@
+
+body {
+  font-family: Arial, sans-serif;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  line-height: 1.6;
+  background: #ffffff;
+  color: #222;
+}
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  padding: 1rem 0;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #007acc;
+  font-weight: bold;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+section {
+  margin-top: 100px;
+  padding: 2rem 0;
+}
+h1, h2 {
+  margin-top: 0;
+}
