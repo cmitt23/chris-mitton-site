@@ -290,6 +290,32 @@ b{font-weight:700}
   .avgrid{grid-template-columns:repeat(3,1fr)}
   .screen{padding:1.2rem 1rem 4.5rem}
 }
+/* ---------- TV friendliness ---------- */
+/* Keep content inside the TV "safe area" — many sets crop 3–5% of each edge (overscan). */
+.screen{padding:max(1.5rem,4vh) max(2.6rem,4.5vw) max(3.4rem,6vh)}
+#app{scrollbar-width:none}
+#app::-webkit-scrollbar{display:none}
+.game{padding-top:max(1.2rem,4vh)}
+#hostbar{right:max(1rem,3vw);bottom:max(1rem,3vh)}
+body.idle, body.idle *{cursor:none!important}
+/* 6–8 players: tighten setup + winner picker so everything fits one TV screen */
+.screen.dense{gap:.8rem}
+.dense .pick-wrap{gap:.8rem}
+.dense .pcard{padding:.7rem .8rem .65rem;gap:.45rem}
+.dense .pav{width:3.6rem;height:3.6rem;font-size:2.1rem}
+.dense .pcard.add{min-height:7.2rem}
+.dense .pick-grid{max-width:46rem}
+.dense .ptile{width:10rem;padding:.75rem .5rem .65rem;gap:.35rem}
+.dense .pt-av{width:3.8rem;height:3.8rem;font-size:2.2rem}
+/* Older smart-TV browsers lack color-mix(): give them simple, solid fallbacks. */
+@supports not (color: color-mix(in srgb, red 50%, blue)){
+  .av{background:#1d1e2b;box-shadow:inset 0 0 0 2px var(--c)}
+  .cat{border-color:var(--c);background:rgba(255,255,255,.05)}
+  .pcard:focus-within{border-color:var(--c)}
+  .ptile.on{border-color:var(--c);background:var(--glass2);box-shadow:0 0 0 2px var(--c)}
+  .road-fill{background:var(--c);opacity:.3}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
@@ -390,7 +416,29 @@ const QS = [
   {c:'brain',q:"How many ridges are on the edge of a U.S. quarter?",a:119,u:"ridges",f:"119. A dime has 118."},
   {c:'brain',q:"If you counted to one billion, one number per second without stopping, about how many years would it take?",a:32,u:"years",ab:1,f:"About 31.7 years, with no sleeping and no snacks."},
   {c:'brain',q:"A Rubik's Cube can be scrambled in about how many QUINTILLION different ways?",a:43,u:"quintillion",ab:1,f:"Exactly 43,252,003,274,489,856,000, and every one of them can be solved in 20 moves or fewer."},
-  {c:'brain',q:"How many keys are on a standard piano?",a:88,u:"keys",f:"52 white keys and 36 black ones."}
+  {c:'brain',q:"How many keys are on a standard piano?",a:88,u:"keys",f:"52 white keys and 36 black ones."},
+
+  /* ---- Pack 2 (append new questions at the END so saved "already played" lists stay valid) ---- */
+  {c:'animals',q:"How many legs does a lobster have?",a:10,u:"legs",f:"Ten, and that includes the two big claws. Lobsters taste with their legs, too."},
+  {c:'animals',q:"What's the fastest a peregrine falcon has ever been measured diving, in miles per hour?",a:240,u:"mph",ab:1,f:"Around 240 mph. That makes it the fastest animal on the planet, faster than a Formula 1 car."},
+  {c:'animals',q:"How many compartments does a cow's stomach have?",a:4,u:"compartments",f:"Four. Cows swallow their food, bring it back up, and chew it again. That's called chewing the cud."},
+  {c:'body',q:"How many teeth does an adult have, counting wisdom teeth?",a:32,u:"teeth",f:"32. Plenty of people never get all four wisdom teeth, though."},
+  {c:'body',q:"About how many taste buds are on the average person's tongue?",a:10000,u:"taste buds",ab:1,f:"Around 10,000, and each one gets replaced about every two weeks."},
+  {c:'space',q:"About how many minutes does it take sunlight to reach Earth?",a:8,u:"minutes",ab:1,f:"About 8 minutes and 20 seconds, so the sunlight you see left the Sun a few minutes ago."},
+  {c:'space',q:"How many people have walked on the Moon?",a:12,u:"people",f:"Twelve astronauts, all on Apollo missions between 1969 and 1972."},
+  {c:'space',q:"About how many hours long is one day on Jupiter?",a:10,u:"hours",ab:1,f:"Just under 10 hours. It's the fastest-spinning planet, even though it's the biggest."},
+  {c:'records',q:"How many Olympic GOLD medals did swimmer Michael Phelps win?",a:23,u:"gold medals",f:"23 golds and 28 medals in all, both all-time records."},
+  {c:'records',q:"How many home runs did Babe Ruth hit in his career?",a:714,u:"home runs",f:"714. His record stood for 39 years, until Hank Aaron passed it in 1974."},
+  {c:'gospel',q:"How many soldiers did Gideon take into battle against the Midianites?",a:300,u:"soldiers",f:"The Lord cut his army from 32,000 down to 300 so Israel would know who really won the battle (Judges 7)."},
+  {c:'gospel',q:"How many people were on Noah's ark?",a:8,u:"people",f:"Noah, his wife, their three sons, and their sons' wives (1 Peter 3:20)."},
+  {c:'gospel',q:"How old was Joseph Smith when he received the gold plates?",a:21,u:"years old",f:"He was 21, on September 22, 1827. Moroni had first shown him the plates four years earlier."},
+  {c:'gospel',q:"About how old was Mormon when Ammaron first told him about the sacred records?",a:10,u:"years old",ab:1,f:"\"About ten years of age\" (Mormon 1:2). While still a teenager, he was put in command of the Nephite armies."},
+  {c:'earth',q:"How many feet tall is the Burj Khalifa in Dubai?",a:2717,u:"feet",f:"2,717 feet, more than twice the height of the Empire State Building's roof."},
+  {c:'earth',q:"About how many feet deep is the deepest point in the ocean?",a:36000,u:"feet",ab:1,f:"The Challenger Deep is roughly 36,000 feet down. If you dropped Mount Everest in, its peak would still be more than a mile underwater."},
+  {c:'earth',q:"What's the hottest air temperature ever officially recorded on Earth, in °F?",a:134,u:"°F",f:"134°F in Death Valley, California, on July 10, 1913."},
+  {c:'when',q:"In what year did the first pioneers enter the Salt Lake Valley?",a:1847,yr:1,u:"",f:"July 24, 1847, which is why Utah celebrates Pioneer Day on July 24."},
+  {c:'when',q:"In what year did the very first Star Wars movie come out in theaters?",a:1977,yr:1,u:"",f:"May 25, 1977. Some theaters kept showing it for more than a year."},
+  {c:'brain',q:"How many seconds are in one day?",a:86400,u:"seconds",f:"60 × 60 × 24 = 86,400. You've already used a bunch of them today."}
 ];
 
 /* =========================================================
@@ -399,7 +447,7 @@ const QS = [
 const KEY = 'ballpark-v2';
 const $ = s => document.querySelector(s);
 const app = $('#app'), modal = $('#modal');
-function fresh(){ return {screen:'title',players:[],target:22,targetTouched:false,timer:45,bonus:true,betting:true,noOver:true,order:[],pos:0,phase:'question',pickStep:'guess',sel:[],selBet:[],history:[],prev:{},gain:{},last:null,muted:false,gameOn:false}; }
+function fresh(){ return {screen:'title',players:[],target:22,targetTouched:false,timer:45,bonus:true,betting:true,noOver:true,order:[],pos:0,phase:'question',pickStep:'guess',sel:[],selBet:[],history:[],prev:{},gain:{},last:null,muted:false,gameOn:false,seen:[]}; }
 function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); return s && Array.isArray(s.players) ? Object.assign(fresh(), s) : null; }catch(e){ return null; } }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 let S = load() || fresh();
@@ -499,14 +547,14 @@ function vTitle(){
                : `<button class="btn big primary" data-a="setup" data-primary>Start a game</button>`}
       <button class="btn big ghost" data-a="howto">How it works</button>
     </div>
-    <div class="foot-note">${QS.length} questions · 2–8 players · made for the big screen</div>
+    <div class="foot-note">${QS.length} questions${S.seen.length ? ` (${freshCount()} you haven't played yet)` : ''} · 2–8 players · made for the big screen</div>
   </section>`;
 }
 
 function vSetup(){
   const n = S.players.length, e = estimate();
   const tog = (k, label, hint) => `<div class="rule"><span>${label}<small>${hint}</small></span><button class="toggle ${S[k]?'on':''}" data-a="tog" data-v="${k}" aria-label="${label}" aria-pressed="${S[k]}"><span></span></button></div>`;
-  return `<section class="screen">
+  return `<section class="screen ${n>=4?'dense':''}">
     <h1 class="h1">Who's playing?</h1>
     <div class="sub">Type a name, then tap the avatar to switch it.</div>
     <div class="pgrid">
@@ -614,7 +662,7 @@ function vPick(){
        <div class="sub">Tap everyone whose bet was on <b>${names(S.sel)}</b>'s guess · <b>+${p}</b> each</div>`
     : `${S.betting?'<div class="stepchip">Step 1 of 2 · Guesses</div>':''}<h1 class="h1">Whose guess wins? 🎯</h1>${ans}
        <div class="sub">${S.noOver ? 'Closest <b>without going over</b>' : 'Closest guess, over or under'} · tie? both win · <b>+${p}</b> each</div>`;
-  return `<section class="screen game">${hdr()}
+  return `<section class="screen game ${S.players.length>5?'dense':''}">${hdr()}
     <div class="pick-wrap ${betStep?'pick-bet':''}">
       ${head}
       <div class="pick-grid">
@@ -708,12 +756,20 @@ function render(){
   $('#hb-home').hidden = S.screen==='title';
   $('#hb-mute').textContent = S.muted ? '🔇' : '🔊';
   save();
-  if(S.screen==='game' && S.phase==='question'){ SFX.whoosh(); if(isBonus()) setTimeout(()=>SFX.score(), 200); runTimer(S.timer, 1400, 'Pens down — stick your notes on the wall 📌'); }
+  if(S.screen==='game' && S.phase==='question'){ markSeen(); SFX.whoosh(); if(isBonus()) setTimeout(()=>SFX.score(), 200); runTimer(S.timer, 1400, 'Pens down — stick your notes on the wall 📌'); }
   if(S.screen==='game' && S.phase==='bet'){ SFX.coin(); runTimer(betSecs(), 1200, 'Bets are locked 🔒'); }
   if(S.screen==='game' && S.phase==='reveal') runReveal();
   if(S.screen==='game' && S.phase==='scores') runScores();
   if(S.screen==='end'){ setTimeout(()=>{ SFX.fanfare(); burst(150,.5,.4); rain(6000); }, 900); }
 }
+
+function markSeen(){
+  const i = S.order[S.pos]; if(i == null || S.seen.includes(i)) return;
+  S.seen.push(i);
+  if(S.seen.length >= QS.length) S.seen = [i]; // everything's been played — start a fresh cycle
+  save();
+}
+const freshCount = () => QS.length - new Set(S.seen.filter(i=>i<QS.length)).size;
 
 function runTimer(total, delay, doneMsg){
   if(!total) return;
@@ -809,7 +865,9 @@ const A = {
   start(){
     if(S.players.length < 2) return;
     S.players.forEach(p=>{ p.score = 0; p.name = (p.name||'').trim(); });
-    S.order = shuffle(QS.map((_,i)=>i)); S.pos = 0; S.sel = []; S.selBet = []; S.pickStep = 'guess';
+    // Never repeat inside a game (it's one shuffled pass), and across games serve unseen questions first.
+    const seen = new Set(S.seen);
+    S.order = [...shuffle(QS.map((_,i)=>i).filter(i=>!seen.has(i))), ...shuffle([...seen].filter(i=>i<QS.length))]; S.pos = 0; S.sel = []; S.selBet = []; S.pickStep = 'guess';
     S.history = []; S.prev = {}; S.gain = {}; S.last = null; S.gameOn = true;
     ac(); go('game','question');
   },
@@ -926,6 +984,23 @@ function openHowTo(){
     <div class="btn-row"><button class="btn big primary" data-m="close">Got it</button></div></div></div>`;
   modal.classList.add('open');
 }
+
+/* =========================================================
+   TV HELPERS
+   ========================================================= */
+// Keep the screen from dimming/sleeping during a game (supported in Chrome, Edge, Safari 16.4+).
+let wakeLock = null;
+async function keepAwake(){
+  try{ if('wakeLock' in navigator && !wakeLock && document.visibilityState==='visible'){ wakeLock = await navigator.wakeLock.request('screen'); wakeLock.addEventListener('release', ()=>{ wakeLock = null; }); } }catch(e){}
+}
+document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible') keepAwake(); });
+document.addEventListener('click', keepAwake);
+document.addEventListener('keydown', keepAwake);
+// Hide the mouse pointer after 3 seconds of no movement so it isn't parked on the TV.
+let idleT = null;
+function wake(){ document.body.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(()=>document.body.classList.add('idle'), 3000); }
+['mousemove','mousedown','touchstart'].forEach(ev => document.addEventListener(ev, wake, {passive:true}));
+wake();
 
 render();
 </script>
